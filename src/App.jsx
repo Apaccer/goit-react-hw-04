@@ -9,6 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
 
 function App() {
   const [images, setImages] = useState([]);
@@ -17,6 +18,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [btnLoadMore, setbtnLoadMore] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalImage, setModalImage] = useState("");
+
   useEffect(() => {
     if (query.length === 0) return;
 
@@ -40,17 +44,34 @@ function App() {
     setError(false);
     setImages([]);
   };
-
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
+  const openModal = (id) => {
+    setModalImage(images.filter((image) => image.id === id));
+
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div>
       <SearchBar onSetSearchQuery={onSetSearchQuery} toast={toast} />
+      {images.length > 0 && (
+        <ImageGallery images={images} openModal={openModal} />
+      )}
       {isLoading && <Loader />}
-      {images.length > 0 && <ImageGallery images={images} />}
       {error && <ErrorMessage />}
       {btnLoadMore && <LoadMoreBtn loadMore={loadMore} images={images} />}
+      <ImageModal
+        openModal={openModal}
+        closeModal={closeModal}
+        modalIsOpen={modalIsOpen}
+        modalImage={modalImage}
+      />
       <Toaster position="top-center" reverseOrder={false} />
     </div>
   );

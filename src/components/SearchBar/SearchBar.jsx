@@ -1,3 +1,4 @@
+import css from "./SearchBar.module.css";
 const SearchBar = ({ onSetSearchQuery, toast }) => {
   const onSubmit = (e) => {
     e.preventDefault();
@@ -18,16 +19,19 @@ const SearchBar = ({ onSetSearchQuery, toast }) => {
     e.target.reset();
   };
   return (
-    <header>
-      <form onSubmit={onSubmit}>
+    <header className={css.header}>
+      <form className={css.searchForm} onSubmit={onSubmit}>
         <input
+          className={css.searchField}
           name="search"
           type="text"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
         />
-        <button type="submit">Search</button>
+        <button className={css.searchBtn} title="Pres for search" type="submit">
+          🔎
+        </button>
       </form>
     </header>
   );
