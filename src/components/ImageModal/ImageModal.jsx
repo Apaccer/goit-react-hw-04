@@ -33,7 +33,7 @@ const ImageModal = ({ closeModal, modalIsOpen, modalImage }) => {
             />
           </div>
           <div className={css.descrContainer}>
-            <p className={css.imgDescr}>{modalImage[0].description}</p>
+            <p className={css.imgDescr}>{modalImage[0].alt_description}</p>
             <p className={css.imgLikes}>👍: {modalImage[0].likes}</p>
           </div>
         </div>

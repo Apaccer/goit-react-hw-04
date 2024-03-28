@@ -49,12 +49,13 @@ function App() {
   };
   const openModal = (id) => {
     setModalImage(images.filter((image) => image.id === id));
-
     setIsOpen(true);
+    document.body.classList.add("modal-open");
   };
 
   const closeModal = () => {
     setIsOpen(false);
+    document.body.classList.remove("modal-open");
   };
 
   return (
